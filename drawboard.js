@@ -1,12 +1,3 @@
-
-// TODO draw connections from power rail to rows (?)
-// TODO associate highlighting colors with wire colors
-// TODO draw oscillo graph
-// TODO save status (to local storage????)
-// TODO bend wire drawings to see if they read better?
-
-// all 0-47 either have real data or f
-
 var width=450;
 var height=600;
 var railcolumn = 2;
@@ -383,4 +374,3 @@ var conflict = function(cnxn1,cnxn2) {
 var getRailPin = function(railnumber,pinnumber) {
   return 0; //this.pinPositions[];
 };
-
