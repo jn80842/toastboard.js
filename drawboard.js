@@ -185,6 +185,11 @@ Breadboard.prototype.drawBreadboard = function(json) {
 
 };
 
+//row pins count across
+Breadboard.prototype.getRowPin = function(rownumber,pinnumber) {
+  return this.pinPositions[(railcolumn*rownum) + (rownumber*pinnum) + pinnumber];
+};
+
 var hashVoltages = function(rowVals) {
   var hash = {}
   rowVals.forEach(function(row) {
@@ -239,7 +244,7 @@ var choosePins = function(cnxn,breadboard) {
     var colorIndex = Math.floor(Math.random() * colorArray.length);
     color = colorArray[colorIndex];
     colorArray.splice(colorIndex,1);
-    newCnxn.push({startPin: getRowPin(connection.start,pin,breadboard),endPin: getRowPin(connection.end,pin2,breadboard),color:color});
+    newCnxn.push({startPin: breadboard.getRowPin(connection.start,pin),endPin: breadboard.getRowPin(connection.end,pin2),color:color});
   });
   return newCnxn;
 };
@@ -269,11 +274,6 @@ var getInnerRowTextCoord = function(rownumber,breadboard) {
     pins = breadboard.pinPositions[(railcolumn*rownum) + (rownumber*pinnum)];
     return {x:pins[0] - 20,y:pins[1]};
   }
-};
-
-//row pins count across
-var getRowPin = function(rownumber,pinnumber,breadboard) {
-  return breadboard.pinPositions[(railcolumn*rownum) + (rownumber*pinnum) + pinnumber];
 };
 
 var getRectAttr = function(firstPin,lastPin) {
