@@ -62,7 +62,8 @@ Breadboard.prototype.processJson = function(json) {
     }
     console.log("handled left side");
     console.log(this.rowData);
-  } else if (json.rowsRight) {
+  }
+  if (json.rowsRight) {
     this.receivedRight = true;
     for (i=0;i<24;i++) {
       if (json.rowsRight[i] != "f") {
