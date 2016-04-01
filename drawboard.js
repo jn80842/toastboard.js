@@ -131,7 +131,7 @@ Breadboard.prototype.drawBreadboard = function(json) {
     var hash = hashVoltages(this.rowData);
     console.log(hash);
     this.voltageAttr = hashToVoltageAttr(hash,self);
-    this.connections = hashToCnxn(hash);
+    this.connections = hashToCnxn(hash,self);
     this.labels = hashToLabels(this.rowData,self);
 
     var svg = this.drawEmptyBreadboard();
@@ -201,7 +201,7 @@ var hashVoltages = function(rowVals) {
   return hash;
 };
 
-var hashToCnxn = function(hash) {
+var hashToCnxn = function(hash,breadboard) {
   var cnxn = [];
   Object.keys(hash).forEach(function(hashKey) {
     var connected_rows = hash[hashKey];
@@ -210,10 +210,10 @@ var hashToCnxn = function(hash) {
       cnxn.push({start:top_row,end:row});
     });
   });
-  return choosePins(cnxn);
+  return choosePins(cnxn,breadboard);
 };
 
-var choosePins = function(cnxn) {
+var choosePins = function(cnxn,breadboard) {
   var colorArray = ["orange","yellow","green","blue","purple","brown","blueviolet","cornflowerblue","crimson",
 "forestgreen","deeppink","indigo","lightseagreen","mediumorchid","orangered","yellowgreen","gold","teal",
 "firebrick","midnightblue"];
@@ -239,7 +239,7 @@ var choosePins = function(cnxn) {
     var colorIndex = Math.floor(Math.random() * colorArray.length);
     color = colorArray[colorIndex];
     colorArray.splice(colorIndex,1);
-    newCnxn.push({startPin: getRowPin(connection.start,pin,self),endPin: getRowPin(connection.end,pin2,self),color:color});
+    newCnxn.push({startPin: getRowPin(connection.start,pin,breadboard),endPin: getRowPin(connection.end,pin2,breadboard),color:color});
   });
   return newCnxn;
 };
